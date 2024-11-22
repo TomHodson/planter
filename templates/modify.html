@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Details</title>
+    <script>
+        async function waterNow(photoId) {
+            const response = await fetch(`/api/water/${photoId}`, { method: 'POST' });
+            if (response.ok) {
+                alert('Watering time updated!');
+                location.reload();
+            } else {
+                alert('Failed to update watering time.');
+            }
+        }
+
+        async function deletePlant(photoId) {
+            const response = await fetch(`/api/delete/${photoId}`, { method: 'POST' });
+            if (response.ok) {
+                alert('Plant deleted successfully!');
+                window.location.href = '/';
+            } else {
+                alert('Failed to delete plant.');
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body class = "details-page">
+    <h1>Plant Details</h1>
+    <img src="/uploads/{{ photo[0] }}" alt="Photo" style="max-width: 300px;">
+    <button onclick="waterNow({{ photo[0] }})">Water Now</button>
+    <form method="POST">
+        <label>
+            Name:
+            <input type="text" name="name" value="{{ photo[1] or '' }}" required>
+        </label>
+        <label>
+            Description:
+            <textarea name="description">{{ photo[2] or '' }}</textarea>
+        </label>
+        <button type="submit">Save</button>
+    </form>
+    <button onclick="deletePlant({{ photo[0] }})">Delete Plant</button>
+</body>
+</html>

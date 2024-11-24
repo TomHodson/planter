@@ -11,6 +11,12 @@ body {
     background-color: #f4f4f4;
 }
 
+#app {
+    min-height: 100vh;
+    margin: 1em;
+    margin-top: 3em;
+}
+
 #icon-container {
     display: flex;
     gap: 1rem;
